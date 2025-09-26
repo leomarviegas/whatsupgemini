@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Whats up Gemini?</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="images/icon48.png" alt="Extension Icon" class="icon">
+      <h1>Whats up Gemini?</h1>
+    </div>
+    
+    <div class="content">
+      <div class="section">
+        <label for="apiKeyInput">Gemini API Key</label>
+        <div class="input-group">
+          <input type="password" id="apiKeyInput" placeholder="Enter your Gemini API Key">
+          <button id="toggleVisibility" class="toggle-btn" title="Toggle visibility">👁️</button>
+        </div>
+        <button id="saveApiKeyButton" class="primary-btn">Save API Key</button>
+      </div>
+      
+      <div class="section">
+        <div class="status-container">
+          <div id="statusMessage" class="status-message"></div>
+        </div>
+      </div>
+      
+      <div class="section">
+        <h3>How to use:</h3>
+        <ol class="instructions">
+          <li>Get your Gemini API key from <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a></li>
+          <li>Enter and save your API key above</li>
+          <li>Go to <a href="https://web.whatsapp.com" target="_blank">WhatsApp Web</a></li>
+          <li>Click "Transcribe" button next to any audio message</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
+
