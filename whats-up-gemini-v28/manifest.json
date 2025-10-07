@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "WhatsUpGemini?",
+  "version": "1.0.0",
+  "description": "Transcribe WhatsApp voice messages using Google Gemini AI",
+  "icons": {
+    "16": "icons/icon_16x16.png",
+    "32": "icons/icon_32x32.png",
+    "48": "icons/icon_48x48.png",
+    "128": "icons/icon_128x128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon_16x16.png",
+      "32": "icons/icon_32x32.png",
+      "48": "icons/icon_48x48.png",
+      "128": "icons/icon_128x128.png"
+    },
+    "default_title": "WhatsUpGemini",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.whatsapp.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.whatsapp.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["lib.js"],
+      "matches": ["*://*.whatsapp.com/*"]
+    }
+  ]
+}
