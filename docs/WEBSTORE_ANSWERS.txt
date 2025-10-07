@@ -1,0 +1,98 @@
+CHROME WEB STORE SUBMISSION - QUICK ANSWERS
+===========================================
+
+Extension: WhatsUpGemini v1.0.0
+Manifest Version: 3
+
+---
+
+QUESTION 1: Single Purpose
+---------------------------
+
+YES - This extension has a single, narrow purpose:
+
+"Transcribe WhatsApp voice messages into text using Google Gemini AI"
+
+The extension adds a "Transcribe" button next to voice messages on WhatsApp Web. When clicked, it extracts the audio, sends it to Google Gemini API, and displays the transcribed text. It does nothing else and only works on WhatsApp Web.
+
+---
+
+QUESTION 2: Permission Justification
+-------------------------------------
+
+We request 4 permissions, all essential for our single purpose:
+
+1. PERMISSION: "activeTab"
+   JUSTIFICATION: Required to inject the "Transcribe" button into WhatsApp Web and interact with voice message elements on the active tab. Without this, we cannot add UI elements or detect voice messages.
+
+2. PERMISSION: "storage"
+   JUSTIFICATION: Required to securely store the user's Google Gemini API key in Chrome sync storage. Without this, users would need to enter their API key every time they use the extension. We also store a JWT secret key for secure authentication. No personal data or messages are stored.
+
+3. PERMISSION: "scripting"
+   JUSTIFICATION: Required to programmatically inject helper scripts (inject.js, lib.js, jwt-utils.js, page-jwt-utils.js) into WhatsApp Web pages. These scripts access WhatsApp's internal Store objects for audio extraction, which are only available in the page context. Content scripts alone cannot access these objects due to JavaScript execution context isolation. All injected scripts are bundled in the extension package (no remote code).
+
+4. HOST PERMISSION: "*://*.whatsapp.com/*"
+   JUSTIFICATION: Required to run content scripts on WhatsApp Web (web.whatsapp.com). This is the narrowest possible host permission for WhatsApp Web. The extension's single purpose is to transcribe WhatsApp voice messages, so it must access WhatsApp Web. It does NOT request access to any other websites.
+
+All permissions are minimal and directly support the extension's single purpose.
+
+---
+
+QUESTION 3: Host Permissions Understanding
+-------------------------------------------
+
+YES - We understand that host permissions include patterns in both "host_permissions" and "content_scripts.matches" fields.
+
+Our manifest declares:
+- host_permissions: ["*://*.whatsapp.com/*"]
+- content_scripts.matches: ["*://*.whatsapp.com/*"]
+
+Both use the same pattern and are limited to WhatsApp Web only. We do NOT request access to any other websites.
+
+---
+
+QUESTION 4: Remote Code Usage
+------------------------------
+
+NO - This extension does NOT use remote code.
+
+All JavaScript files are bundled in the extension package:
+- background.js
+- content.js
+- inject.js
+- lib.js
+- jwt-utils.js
+- page-jwt-utils.js
+- popup.js
+
+We confirm:
+✓ No external <script> tags pointing to remote URLs
+✓ No eval() or new Function() calls
+✓ No dynamic code execution
+✓ No WebAssembly modules
+✓ All scripts loaded via chrome.runtime.getURL() (local files)
+
+The extension makes API calls to Google Gemini, but these are DATA requests (send audio, receive text JSON), NOT code execution. No JavaScript code is downloaded or executed from external sources.
+
+All code is static and bundled in the extension package.
+
+---
+
+ADDITIONAL INFORMATION
+-----------------------
+
+Privacy:
+- No data collection or tracking
+- No analytics
+- Voice messages sent directly to Google Gemini API using user's own API key
+- Transcriptions displayed locally, not stored
+
+Security:
+- JWT authentication with HMAC-SHA256
+- API keys encrypted in Chrome storage
+- Minimal permissions
+- Manifest V3 compliant
+
+---
+
+END OF ANSWERS
