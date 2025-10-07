@@ -21,16 +21,16 @@
   },
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "scripting"
   ],
   "host_permissions": [
     "*://*.whatsapp.com/*"
   ],
   "content_scripts": [
     {
-      "matches": ["*://*.whatsapp.com/*"],
-      "js": ["content.js"],
-      "run_at": "document_idle"
+      "matches": ["*://*.whatsapp.com/*"],      
+      "js": ["content.js"]
     }
   ],
   "background": {
@@ -38,7 +38,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["lib.js"],
+      "resources": ["inject.js", "lib.js", "jwt-utils.js", "page-jwt-utils.js"],
       "matches": ["*://*.whatsapp.com/*"]
     }
   ]
